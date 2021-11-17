@@ -1,27 +1,21 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: beige;
+  font-size: 20px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  /* background-color: #282c34; */
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-top: 10px;
 }
 
 .App-link {
@@ -35,4 +29,84 @@
   to {
     transform: rotate(360deg);
   }
+}
+.flex-center{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.home {
+  padding: 10px;
+  background-color: #61dafb;
+}
+.home-button{
+  border: 0;
+  color: white;
+  font-weight: 800;
+  background: #2f2d2d;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius:3px;
+  cursor: pointer;
+}
+.search-bar {
+  font-size: 20px;
+  margin: 10px;
+}
+.header {
+  padding: 10px;
+  font-size: 30px;
+  color: blue;
+  font-weight: 800;
+}
+.users {
+  border-radius: 10px;
+  background: #5f9ea0;
+  margin: 10px;
+}
+.dp {
+  border-radius: 10px 10px 0 0;
+}
+.details {
+  padding: 5px;
+}
+.buttons {
+  border: 0;
+  color: white;
+  font-weight: 800;
+  background: #2f2d2d;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius:3px;
+  cursor: pointer;
+}
+.disabled{
+  border: 0;
+  color: white;
+  font-weight: 800;
+  background: #2f2d2d;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius:3px;
+  cursor:not-allowed;
+  opacity: 0.5;
+}
+.action-btn-bar{
+  position: relative;
+  top:50px
+}
+.shortlisted{
+  background-color: green;
+  color:white;
+  padding:10px;
+  border-radius:  0 0 10px 10px;
+}
+.rejected{
+  background-color:red;
+  color:white;
+  padding:10px;
+  border-radius:  0 0 10px 10px;
+}
+.empty-data{
+  margin-top:50px
 }

@@ -15,6 +15,11 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <div className="App-header">
+          <Link to="/">
+            <button className="home-button">HOME</button>
+          </Link>
+        </div>
         <Routes>
           <Route exact path="/" element={<Home />} />
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams ,useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const Child = (props) => {
-        const navigate=useNavigate()
+  const navigate = useNavigate();
   let { id } = useParams();
   const [status, setStatus] = useState();
   const [data, setData] = useState();
@@ -12,54 +12,63 @@ export const Child = (props) => {
     let rejectlist = JSON.parse(localStorage.getItem("rejected"));
     let shortlist = JSON.parse(localStorage.getItem("shortlisted"));
     if (rejectlist.includes(id)) {
-      setStatus("rejected");
+      setStatus("REJECTED");
     } else if (shortlist.includes(id)) {
-      setStatus("shortlisted");
+      setStatus("SHORTLISTED");
     }
   }, []);
 
-  console.log(props);
-  console.log(data);
   const rejectCandidate = (id) => {
     let rejectlist = JSON.parse(localStorage.getItem("rejected"));
     rejectlist.push(id);
     localStorage.setItem("rejected", JSON.stringify(rejectlist));
-    navigate("/")
+    navigate("/");
   };
   const shortListCandidate = (id) => {
     let shortlist = JSON.parse(localStorage.getItem("shortlisted"));
     shortlist.push(id);
     localStorage.setItem("shortlisted", JSON.stringify(shortlist));
-    navigate("/")
-    
+    navigate("/");
   };
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      {data && (
-        <div style={{ margin: "10px" }}>
-          <img src={data.Image} width="200px" height="200px" />
-          <div>Id : {data.id}</div>
-          <div>Name : {data.name}</div>
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            {status ? `${status}` :
-            <>
-            <button
-              onClick={() => rejectCandidate(data.id)}
-              disabled={status}
-            >
-              Reject
-            </button>
-            <button
-              onClick={() => shortListCandidate(data.id)}
-              disabled={status}
-            >
-              Shortlist
-            </button>
-            </>
-            }
+    <>
+      <div className="header">User</div>
+      <div className="flex-center">
+        {data && (
+          <div className="users">
+            <img src={data.Image} width="300px" height="300px" className="dp" />
+            <div className="details">Id : {data.id}</div>
+            <div className="details">Name : {data.name}</div>
+            {status ? (
+              status === "REJECTED" ? (
+                <div className="rejected">REJECTED</div>
+              ) : (
+                <div className="shortlisted">SHORTLISTED</div>
+              )
+            ) : (
+              <div
+                style={{ display: "flex", justifyContent: "space-around" }}
+                className="action-btn-bar"
+              >
+                <button
+                  className="buttons"
+                  onClick={() => rejectCandidate(data.id)}
+                  disabled={status}
+                >
+                  Reject
+                </button>
+                <button
+                  className="buttons"
+                  onClick={() => shortListCandidate(data.id)}
+                  disabled={status}
+                >
+                  Shortlist
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
