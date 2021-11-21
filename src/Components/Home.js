@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
+import STATUS from "./constants";
 
 export const Home = () => {
   const [mainData, setMainData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  useEffect(async () => {
+
+  useEffect(() => {
+    fetchData();
+    const reject = localStorage.getItem(STATUS.REJECTED);
+    const shortlist = localStorage.getItem(STATUS.SHORTLISTED);
+    const value = JSON.stringify([]);
+    if (!reject) {
+      localStorage.setItem(STATUS.REJECTED, value);
+    }
+    if (!shortlist) {
+      localStorage.setItem(STATUS.SHORTLISTED, value);
+    }
+  }, []);
+
+  async function fetchData() {
     const data = await fetch(
       "https://s3-ap-southeast-1.amazonaws.com/he-public-data/users49b8675.json"
     ).then((resp) => {
-//       console.log(resp);
       return resp.json();
     });
     setMainData(data);
     setFilterData(data);
-    let reject = localStorage.getItem("rejected");
-    let shortlist = localStorage.getItem("shortlisted");
-    const value = JSON.stringify([]);
-    if (!reject) {
-      localStorage.setItem("rejected", value);
-    }
-    if (!shortlist) {
-      localStorage.setItem("shortlisted", value);
-    }
-  }, []);
+  }
 
   const setData = (item) => {
-    localStorage.setItem("currentUser", JSON.stringify(item));
+    localStorage.setItem(STATUS.CURRENTUSER, JSON.stringify(item));
   };
+  
   return (
     <>
       <SearchBar data={mainData} setData={setFilterData} />
@@ -54,6 +60,7 @@ export const Home = () => {
                   width="300px"
                   height="300px"
                   className="dp"
+                  alt="user"
                 />
                 <div className="details">Id : {item.id}</div>
                 <div className="details">Name : {item.name}</div>

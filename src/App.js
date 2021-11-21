@@ -1,15 +1,11 @@
-import "./App.css";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useParams,
+  BrowserRouter as Router, Link, Route, Routes
 } from "react-router-dom";
-import { Home } from "./assignment/Home";
-import { Rejected } from "./assignment/Rejected";
-import { ShortListed } from "./assignment/ShortListed";
-import { Child } from "./assignment/Child";
+import "./App.css";
+import { Child } from "./Components/Child";
+import { Home } from "./Components/Home";
+import { Rejected } from "./Components/Rejected";
+import { ShortListed } from "./Components/ShortListed";
 
 function App() {
   return (
@@ -21,13 +17,13 @@ function App() {
           </Link>
         </div>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route  path="/" element={<Home />} />
 
           <Route path="/:id" element={<Child />} />
 
-          <Route exact path="/rejected" element={<Rejected />} />
+          <Route  path="/rejected" element={<Rejected />} />
 
-          <Route exact path="/shortlisted" element={<ShortListed />} />
+          <Route  path="/shortlisted" element={<ShortListed />} />
         </Routes>
       </Router>
     </div>

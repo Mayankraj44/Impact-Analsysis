@@ -5,28 +5,32 @@ export const ShortListed = () => {
   const [mainData, setMainData] = useState([]);
   const [filterData, setFilterData] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    
+    fetchData();
+  }, []);
+  
+  async function fetchData() {
     const data = await fetch(
       "https://s3-ap-southeast-1.amazonaws.com/he-public-data/users49b8675.json"
     ).then((resp) => {
-//       console.log(resp);
       return resp.json();
     });
-    let shortlist = JSON.parse(localStorage.getItem("shortlisted"));
+    const shortlist = JSON.parse(localStorage.getItem("shortlisted"));
     const shortlistUser = data.filter((item) => {
       return shortlist.includes(item.id);
     });
-//     console.log("Main data", data);
-//     console.log("Rejeced User", shortlistUser);
     setMainData(shortlistUser);
     setFilterData(shortlistUser);
-  }, []);
+  }
+
   const clearList = () => {
     const value = JSON.stringify([]);
     localStorage.setItem("shortlisted", value);
     setMainData([]);
     setFilterData([]);
   };
+
   return (
     <>
       <div className="header">Shortlisted Candidates</div>
@@ -50,6 +54,7 @@ export const ShortListed = () => {
                 width="300px"
                 height="300px"
                 className="dp"
+                alt="user"
               />
               <div className="details">Id : {item.id}</div>
               <div className="details">Name : {item.name}</div>

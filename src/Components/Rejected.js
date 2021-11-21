@@ -5,21 +5,21 @@ export const Rejected = () => {
   const [mainData, setMainData] = useState([]);
   const [filterData, setFilterData] = useState([]);
 
-  useEffect(async () => {
-    const data = await fetch(
-      "https://s3-ap-southeast-1.amazonaws.com/he-public-data/users49b8675.json"
-    ).then((resp) => {
-//       console.log(resp);
-      return resp.json();
-    });
-    let rejectlist = JSON.parse(localStorage.getItem("rejected"));
-    const rejectedUser = data.filter((item) => {
-      return rejectlist.includes(item.id);
-    });
-//     console.log("Main data", data);
-//     console.log("Rejeced User", rejectedUser);
-    setMainData(rejectedUser);
-    setFilterData(rejectedUser);
+  useEffect(() => {
+    async function fetchData(){
+      const data = await fetch(
+        "https://s3-ap-southeast-1.amazonaws.com/he-public-data/users49b8675.json"
+      ).then((resp) => {
+        return resp.json();
+      });
+      const rejectlist = JSON.parse(localStorage.getItem("rejected"));
+      const rejectedUser = data.filter((item) => {
+        return rejectlist.includes(item.id);
+      });
+      setMainData(rejectedUser);
+      setFilterData(rejectedUser);
+    }
+    fetchData()
   }, []);
   const clearList = () => {
     const value = JSON.stringify([]);
@@ -49,6 +49,7 @@ export const Rejected = () => {
                 width="300px"
                 height="300px"
                 className="dp"
+                alt="user"
               />
               <div className="details">Id : {item.id}</div>
               <div className="details">Name : {item.name}</div>

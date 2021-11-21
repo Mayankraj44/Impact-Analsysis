@@ -10,6 +10,7 @@ export const SearchBar = ({ data, setData }) => {
       ) {
         return item;
       }
+      return false
     });
     setData(newData);
   };
